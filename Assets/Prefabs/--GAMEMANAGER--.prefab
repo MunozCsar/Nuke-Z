@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1576882901402162078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576882901402162072}
+  - component: {fileID: 1576882901402162073}
+  m_Layer: 0
+  m_Name: --GAMEMANAGER--
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576882901402162072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576882901402162078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576882901402162073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576882901402162078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b373b80cd09a646a14e9eccb815e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  audioSource: {fileID: 0}
+  uiSoundEffect: []
+  isKeyActive: 0
+  isKeyObtained: 0
+  allowPickup: 0
+  obtainedPickup: 0
+  placeablePart: 0
+  endGameTrigger: 0
+  isPaused: 0
+  instaKill: 0
+  truckKey: {fileID: 0}
+  electricDoor: {fileID: 0}
+  selectedPart: 4
+  powerParts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lights:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lightMaterial: {fileID: 2100000, guid: bc34e0578adf6cc43b57c419b042bf5f, type: 2}
+  weaponPrefabs:
+  - {fileID: 6347139961533605940, guid: 643a44762e4b9614caac3921e63f2f71, type: 3}
+  - {fileID: 5966807515904111837, guid: 051e8f37b5d0b424f8be4a14e1b099dc, type: 3}
+  - {fileID: 7026148445391975667, guid: c1b6a46870778734baddc3f6db73a0ea, type: 3}
+  - {fileID: 4179730959311312290, guid: 9f691f1138bd51448b4b3f4891a1ce55, type: 3}
+  - {fileID: 1332740187232933811, guid: 4e8c638dde6e9cd45afda7e41bde22d9, type: 3}
+  - {fileID: 3062882587332645583, guid: 2cb0f7403e735594198bb6d79581a3c3, type: 3}
+  - {fileID: 192060745770015574, guid: 4d913426657f10340884690c7110eae8, type: 3}
+  DamageIndicators:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  powerUpArray:
+  - {fileID: 5116048582952008926, guid: e2f2cd018043a594ab182c88227f7c2e, type: 3}
+  - {fileID: 8938444209875583819, guid: 155c6e3f2e0012746b23f8a89b111880, type: 3}
+  - {fileID: 5537997103780011828, guid: 1c1e5532206945a4082309addd5391f7, type: 3}
+  - {fileID: 8726763782132637443, guid: 4157a1e1cd2a03d49989aec0882150f3, type: 3}
+  radiationContainers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mysteryBox:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bloodFX:
+  - {fileID: 5752563408022827785, guid: 76ce9e570b9a35c4a8e83a830712ccbe, type: 3}
+  - {fileID: 5752563408022827785, guid: 523d0f65592a0d446bfef2c6cbf21eb5, type: 3}
+  - {fileID: 5752563408022827785, guid: 5984fcaee8ddf3a4296f2281e2605065, type: 3}
+  - {fileID: 5752563408022827785, guid: 771b2e189a04aae4f9c16991c8ccfa31, type: 3}
+  - {fileID: 877899083712949219, guid: 6e1bbb61dc1a208488b0ccbbc7131d4f, type: 3}
+  wallChipFX: {fileID: 1984791954102398924, guid: b5f232954e40d394d8859d988eb422a7, type: 3}
+  groundFX: {fileID: 2143939309426521130, guid: d7a77fb5a1175b64cb15b65281fab3c2, type: 3}
+  playerCam: {fileID: 0}
+  powerUp_max: 2
+  powerUp_current: 0
+  powerUpChance: 0.2
+  powerUp_fx: {fileID: 2876967929562233852, guid: 4d80fd197532a9c448787919fc138305, type: 3}
+  radContainerFull: 000000
+  options: {fileID: 0}
+  graphics: {fileID: 0}
+  controls: {fileID: 0}
+  volume: {fileID: 0}
+  credits: {fileID: 0}
+  loadingBar: {fileID: 0}
+  loadingScreen: {fileID: 0}
+  maxAmmoUI: {fileID: 0}
+  nukeUI: {fileID: 0}
+  instaKillUI: {fileID: 0}
+  doublePointsUI: {fileID: 0}
+  pauseFirstButton: {fileID: 0}
+  optionsFirstButton: {fileID: 0}
+  controlsFirstButton: {fileID: 0}
+  graphicsFirstButton: {fileID: 0}
+  volumeFirstButton: {fileID: 0}
+  scoreText: {fileID: 0}
+  score: 0
+  kills: 0
+  pointsOnHit: 10
+  pointsOnKill: 90
+  pointsOnHead: 130
+  pointsOnNuke: 400
+  killScore: 0
+  playerScore: 0
+  scoreBoard: {fileID: 0}
+  pauseCanvas: {fileID: 0}
+  pointsInstance: {fileID: 2618726826284022868, guid: cc7d6726c5cd9a14e92281202f292469, type: 3}
+  damageIndicatorsContainer: {fileID: 0}
+  totalScore: {fileID: 0}
+  totalKills: {fileID: 0}
+  interactText: {fileID: 0}
+  doublePoints: 0
+  gameOver: 0
+  powerOn: 0
+  instaKillTimer: 0
+  instaKillCountdown: 0
+  doublePointsTimer: 0
+  doublePointsCountdown: 0
+  volumeSlider: {fileID: 0}
+  sensitivitySlider: {fileID: 0}
+  zombie:
+  - {fileID: 2516650297914614024, guid: af7860260132741478f16023931b5b8d, type: 3}
+  - {fileID: 4034997236654928078, guid: 35e2d7ca231fa2d4fbc86d20516e3030, type: 3}
+  zm_HP: 150
+  zm_Damage: 0
+  zombieList: []
+  wave: 1
+  powerUps: 0
+  roundEnd: 0
+  waveText: {fileID: 0}
+  zm_Delay: 0
+  zm_Count: 0
+  zm_maxHorde: 24
+  zm_spawned: 0
+  zm_alive: 0
+  timer: 0
+  timerGoal: 25
+  spawnZM: 0

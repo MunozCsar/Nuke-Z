@@ -1,0 +1,529 @@
+fileFormatVersion: 2
+guid: b415ee6b647341146b73029452fb5da1
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Zombie_Idle
+      takeName: zombieRig|metarigAction
+      internalID: 5025553802048479582
+      firstFrame: 70
+      lastFrame: 117
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Walk
+      takeName: zombieRig|metarigAction
+      internalID: -8618847202123329618
+      firstFrame: 12
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Run
+      takeName: zombieRig|metarigAction
+      internalID: 247416487700743254
+      firstFrame: 240
+      lastFrame: 279
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Death
+      takeName: zombieRig|metarigAction
+      internalID: -302953492076571958
+      firstFrame: 290
+      lastFrame: 318
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Headshot
+      takeName: zombieRig|metarigAction
+      internalID: 4103495484635368331
+      firstFrame: 320
+      lastFrame: 350
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Attack_L
+      takeName: zombieRig|metarigAction
+      internalID: -4336988279720577887
+      firstFrame: 170
+      lastFrame: 220
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Zombie_Attack_R
+      takeName: zombieRig|metarigAction
+      internalID: 1718144962445799228
+      firstFrame: 120
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Zombie_Animated(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: zombieRig
+      parentName: Zombie_Animated(Clone)
+      position: {x: -0, y: -0.04145021, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 158.75558, y: 158.75558, z: 158.75558}
+    - name: root
+      parentName: zombieRig
+      position: {x: 7.802451e-11, y: -0.0036867468, z: -0.00014896176}
+      rotation: {x: 1, y: -1.4210855e-14, z: 0.00000031391647, w: 0}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: spine
+      parentName: root
+      position: {x: 0.0000000067092047, y: -0.00273177, z: -0.01068629}
+      rotation: {x: -0.61251956, y: -0.000000248137, z: -0.00000019228008, w: 0.7904554}
+      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+    - name: spine.001
+      parentName: spine
+      position: {x: -2.260659e-18, y: 0.0015221937, z: 1.4901161e-10}
+      rotation: {x: -0.07863534, y: -0.00000011884017, z: 0.000000009374149, w: 0.9969035}
+      scale: {x: 1, y: 0.9999998, z: 0.99999976}
+    - name: spine.002
+      parentName: spine.001
+      position: {x: 2.6645352e-17, y: 0.0017734128, z: 1.11758686e-10}
+      rotation: {x: -0.06312694, y: 2.1948665e-11, z: 0.000000010872295, w: 0.9980055}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: spine.003
+      parentName: spine.002
+      position: {x: -3.085006e-10, y: 0.0017483617, z: -1.1088559e-10}
+      rotation: {x: -0.0026416855, y: 0.00000013303568, z: -0.000000007049119, w: 0.99999654}
+      scale: {x: 0.9999998, y: 0.9999997, z: 1}
+    - name: spine.004
+      parentName: spine.003
+      position: {x: 7.4505804e-11, y: 0.0014970752, z: -2.0489097e-10}
+      rotation: {x: -0.1949853, y: 0.000000100587556, z: -0.000000007862748, w: 0.9808062}
+      scale: {x: 1, y: 0.9999998, z: 1}
+    - name: spine.005
+      parentName: spine.004
+      position: {x: -7.4505804e-11, y: 0.00089582085, z: 7.0780515e-10}
+      rotation: {x: 0.28578186, y: 0.00000034965055, z: 0.00000017442069, w: 0.95829475}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: spine.006
+      parentName: spine.005
+      position: {x: -1.8626451e-11, y: 0.00065973226, z: 1.862645e-10}
+      rotation: {x: -0.06282876, y: -0.0000003685218, z: -0.000000039758397, w: 0.9980244}
+      scale: {x: 1, y: 1.0000002, z: 0.99999994}
+    - name: spine.006_end
+      parentName: spine.006
+      position: {x: -0, y: 0.001838427, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulder.L
+      parentName: spine.003
+      position: {x: -0.00018300011, y: 0.0014199971, z: -0.00025186833}
+      rotation: {x: -0.4647812, y: 0.5154992, z: 0.53499234, w: 0.48168695}
+      scale: {x: 1.0000004, y: 1, z: 1.0000001}
+    - name: upper_arm.L
+      parentName: shoulder.L
+      position: {x: 0.00008862536, y: 0.0017704742, z: -0.0001431626}
+      rotation: {x: -0.058762178, y: -0.7109926, z: -0.020071054, w: 0.7004525}
+      scale: {x: 1, y: 1.0000006, z: 0.9999999}
+    - name: forearm.L
+      parentName: upper_arm.L
+      position: {x: -9.685754e-10, y: 0.002784097, z: -7.4505804e-11}
+      rotation: {x: 0.04328682, y: -0.0049480493, z: -0.023852857, w: 0.9987657}
+      scale: {x: 1, y: 0.99999976, z: 0.99999994}
+    - name: hand.L
+      parentName: forearm.L
+      position: {x: 0.0000000017136335, y: 0.0029223245, z: -1.4901161e-10}
+      rotation: {x: -0.08337291, y: -0.000012277624, z: 0.021898475, w: 0.99627787}
+      scale: {x: 1.0000006, y: 1.0000004, z: 1.0000002}
+    - name: hand.L_end
+      parentName: hand.L
+      position: {x: -0, y: 0.000802041, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulder.R
+      parentName: spine.003
+      position: {x: 0.0001830002, y: 0.0014199963, z: -0.00025186845}
+      rotation: {x: 0.46478114, y: 0.51549923, z: 0.5349922, w: -0.48168698}
+      scale: {x: 1.0000007, y: 1, z: 1.0000004}
+    - name: upper_arm.R
+      parentName: shoulder.R
+      position: {x: -0.0000886248, y: 0.001770474, z: -0.00014316141}
+      rotation: {x: -0.058762483, y: 0.7109926, z: 0.020070778, w: 0.70045257}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000006}
+    - name: forearm.R
+      parentName: upper_arm.R
+      position: {x: -7.4505804e-11, y: 0.0027840973, z: 0.0000000010043731}
+      rotation: {x: 0.04328682, y: 0.0049478994, z: 0.023853112, w: 0.9987657}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: hand.R
+      parentName: forearm.R
+      position: {x: 0.0000000016763806, y: 0.0029223252, z: 2.9802322e-10}
+      rotation: {x: -0.08337299, y: 0.000012380537, z: -0.021898603, w: 0.99627787}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.9999997}
+    - name: hand.R_end
+      parentName: hand.R
+      position: {x: -0, y: 0.000802041, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: breast.L
+      parentName: spine.003
+      position: {x: -0.0011840002, y: -0.000473954, z: -0.00044371223}
+      rotation: {x: -0.00000006615241, y: 0.6939964, z: 0.7199785, w: -0.000000035176626}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000001}
+    - name: breast.L_end
+      parentName: breast.L
+      position: {x: -0, y: 0.001392, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: breast.R
+      parentName: spine.003
+      position: {x: 0.0011840002, y: -0.00047395364, z: -0.00044371223}
+      rotation: {x: -0.00000006615241, y: 0.6939964, z: 0.7199785, w: -0.000000035176626}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000001}
+    - name: breast.R_end
+      parentName: breast.R
+      position: {x: -0, y: 0.001392, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pelvis.L
+      parentName: spine
+      position: {x: 2.5731958e-16, y: -2.2351741e-10, z: -7.4505804e-11}
+      rotation: {x: -0.15245523, y: 0.7933307, z: 0.28550383, w: 0.5156272}
+      scale: {x: 0.9999998, y: 1.0000002, z: 0.9999997}
+    - name: pelvis.L_end
+      parentName: pelvis.L
+      position: {x: -0, y: 0.0020733816, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pelvis.R
+      parentName: spine
+      position: {x: 2.5731958e-16, y: -2.2351741e-10, z: -7.4505804e-11}
+      rotation: {x: -0.15245523, y: -0.7933307, z: -0.28550386, w: 0.5156271}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1}
+    - name: pelvis.R_end
+      parentName: pelvis.R
+      position: {x: -0, y: 0.0020733816, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thigh.L
+      parentName: spine
+      position: {x: -0.0009799999, y: 0.00070818356, z: 0.00025942267}
+      rotation: {x: 0.99175155, y: -0.000000005098329, z: -0.0000000131935, w: 0.12817514}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000007}
+    - name: shin.L
+      parentName: thigh.L
+      position: {x: -1.1641532e-10, y: 0.0053480607, z: 9.3132255e-12}
+      rotation: {x: 0.009387568, y: 0.00000004113389, z: -0.0000000070518915, w: 0.99995595}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: foot.L
+      parentName: shin.L
+      position: {x: -3.72529e-10, y: 0.0045204447, z: 7.4505804e-11}
+      rotation: {x: -0.4993563, y: -0.0000003225657, z: 0.00000018391012, w: 0.8663967}
+      scale: {x: 0.99999994, y: 1.0000004, z: 0.99999994}
+    - name: toe.L
+      parentName: foot.L
+      position: {x: -2.1420418e-10, y: 0.0013865812, z: 3.7252902e-11}
+      rotation: {x: -0.0000000032580196, y: 0.9780594, z: -0.20832634, w: -0.0000005421801}
+      scale: {x: 1.0000002, y: 0.9999997, z: 1.0000002}
+    - name: toe.L_end
+      parentName: toe.L
+      position: {x: -0, y: 0.0011874707, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: heel.02.L
+      parentName: foot.L
+      position: {x: 0.0003800003, y: 0.00018251892, z: 0.0008836283}
+      rotation: {x: -0.6815729, y: 0.6815725, z: -0.18830438, w: -0.18830495}
+      scale: {x: 0.9999997, y: 1.0000004, z: 1.0000005}
+    - name: heel.02.L_end
+      parentName: heel.02.L
+      position: {x: -0, y: 0.0008, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thigh.R
+      parentName: spine
+      position: {x: 0.0009799999, y: 0.00070818356, z: 0.00025942267}
+      rotation: {x: 0.99175155, y: 0.0000000053182845, z: 0.0000000010668373, w: 0.12817514}
+      scale: {x: 0.9999999, y: 1.0000005, z: 1.0000008}
+    - name: shin.R
+      parentName: thigh.R
+      position: {x: 3.7252902e-11, y: 0.005348061, z: 6.377377e-10}
+      rotation: {x: 0.009387568, y: -0.0000000021171973, z: 0.0000000057988814, w: 0.99995595}
+      scale: {x: 0.99999994, y: 1.0000007, z: 1.0000006}
+    - name: foot.R
+      parentName: shin.R
+      position: {x: -3.0267983e-11, y: 0.0045204437, z: 3.6801792e-10}
+      rotation: {x: -0.4993563, y: 0.00000031595965, z: -0.0000001797696, w: 0.8663967}
+      scale: {x: 0.99999994, y: 1.0000007, z: 1.0000006}
+    - name: toe.R
+      parentName: foot.R
+      position: {x: 6.984919e-11, y: 0.001386581, z: 3.632158e-10}
+      rotation: {x: 0.000000037060516, y: 0.9780594, z: -0.20832634, w: 0.00000054537134}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: toe.R_end
+      parentName: toe.R
+      position: {x: -0, y: 0.0011874707, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: heel.02.R
+      parentName: foot.R
+      position: {x: -0.00038000065, y: 0.00018251882, z: 0.00088362873}
+      rotation: {x: -0.6815729, y: -0.6815725, z: 0.1883044, w: -0.188305}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000004}
+    - name: heel.02.R_end
+      parentName: heel.02.R
+      position: {x: -0, y: 0.0008, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ZM_Retopo.001
+      parentName: Zombie_Animated(Clone)
+      position: {x: -0, y: 2.361565, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 33.671326, y: 33.671326, z: 33.671326}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
