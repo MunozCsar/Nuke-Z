@@ -24,7 +24,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -37,6 +36,33 @@ public class UIManager : MonoBehaviour
         InputManager.Instance._inputActions.Player.Scoreboard.started += ctx => ShowScoreBoard();
         InputManager.Instance._inputActions.Player.Scoreboard.canceled += ctx => HideScoreBoard();
         UpdateScoreText();
+        UpdateScoreBoard();
+    }
+        public void Exit() //Sale del juego
+    {
+        Application.Quit();
+    }
+
+    IEnumerator LoadSceneAsync(int sceneID)
+    {
+        UIManager.Instance.loadingScreen.SetActive(true);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        while (!operation.isDone)
+        {
+            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+
+            loadingBar.fillAmount = progressValue;
+
+            yield return null;
+        }
+    }
+    public void Play(int sceneID)
+    {
+        StartCoroutine(LoadSceneAsync(sceneID));
+        GameManager.Instance.AssignVariables();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     #region UI
@@ -122,6 +148,7 @@ public class UIManager : MonoBehaviour
     }
     public void MainMenu() //Vuelve al menu principal
     {
+        Destroy(gameObject);
         SceneManager.LoadScene(0);
     }
 

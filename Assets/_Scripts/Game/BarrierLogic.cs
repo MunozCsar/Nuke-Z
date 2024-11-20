@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    Este script gestiona la lógica de las barreras defensivas en el juego.
-    Controla el estado de salud de la barrera, la destrucción y reparación de partes de la misma.
+    Este script gestiona la lï¿½gica de las barreras defensivas en el juego.
+    Controla el estado de salud de la barrera, la destrucciï¿½n y reparaciï¿½n de partes de la misma.
 */
 
 public class BarrierLogic : MonoBehaviour
 {
     public int hitPoints;
     public GameObject[] planks;
+    public GameObject zombieTrigger;
 
     // Reduce los puntos de resistencia de la barrera y la destruye si alcanza cero puntos
     public void ReduceHitPoints()
@@ -25,7 +26,7 @@ public class BarrierLogic : MonoBehaviour
         planks[hitPoints].SetActive(false);
         if (hitPoints <= 0)
         {
-            transform.GetChild(0).gameObject.SetActive(false); // Desactiva el objeto padre si la barrera está completamente destruida
+            transform.GetChild(0).gameObject.SetActive(false); // Desactiva el objeto padre si la barrera estï¿½ completamente destruida
         }
     }
 
@@ -37,6 +38,7 @@ public class BarrierLogic : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true); // Activa la barrera completa si estaba completamente destruida
         }
         planks[hitPoints].SetActive(true);
+
         hitPoints++;
         GameManager.Instance.AddPoints(10);
     }

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
+using Unity.VisualScripting;
 
 /*
-    Este script gestiona la aparición de zombies durante el juego y controla varios parámetros del juego
-    como el recuento de oleadas, el recuento de zombies, los tiempos de aparición y las transiciones de rondas.
+    Este script gestiona la apariciï¿½n de zombies durante el juego y controla varios parï¿½metros del juego
+    como el recuento de oleadas, el recuento de zombies, los tiempos de apariciï¿½n y las transiciones de rondas.
 */
 
 public class ZM_Spawner : MonoBehaviour
@@ -43,7 +44,7 @@ public class ZM_Spawner : MonoBehaviour
         }
     }
 
-    // Determina la cantidad de zombies para la próxima oleada
+    // Determina la cantidad de zombies para la prï¿½xima oleada
     private void NextWave()
     {
         switch (GameManager.Instance.wave)
@@ -87,9 +88,20 @@ public class ZM_Spawner : MonoBehaviour
         }
 
         GameManager.Instance.powerUp_current = 0;
+
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (GameManager.Instance.player.GetComponent<PlayerController>().lethalStored < 4)
+            {
+                GameManager.Instance.player.GetComponent<PlayerController>().lethalStored++;
+                GameManager.Instance.player.GetComponent<PlayerController>().equipmentCount.text = GameManager.Instance.player.GetComponent<PlayerController>().lethalStored.ToString();
+            }
+
+        }
     }
 
-    // Configura los tiempos para la aparición de zombies según la oleada actual
+    // Configura los tiempos para la apariciï¿½n de zombies segï¿½n la oleada actual
     private void Timings()
     {
         switch (GameManager.Instance.wave)
@@ -113,7 +125,7 @@ public class ZM_Spawner : MonoBehaviour
         }
     }
 
-    // Función que gestiona la aparición de zombies
+    // Funciï¿½n que gestiona la apariciï¿½n de zombies
     private void ZM_Spawn()
     {
         if (GameManager.Instance.zm_alive < GameManager.Instance.zm_maxHorde && GameManager.Instance.roundEnd == false && GameManager.Instance.isPaused == false)

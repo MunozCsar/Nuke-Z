@@ -29,7 +29,8 @@ public class CameraMovement : MonoBehaviour
     
     private void Start()
     {
-        UpdateSensitivty();
+        sensitivity = PlayerPrefs.GetFloat("sensitivity", .5f);
+        sensitivitySlider.value = sensitivity;
     }
 
     void Update()
@@ -43,10 +44,8 @@ public class CameraMovement : MonoBehaviour
 
     public void FPSCamLook()
     {
-
-        yRotation += InputManager.Instance.GetCamX() * sensitivity;
-
-        xRotation += InputManager.Instance.GetCamY() * sensitivity;
+        yRotation += (InputManager.Instance._inputActions.Player.MouseLook.ReadValue<Vector2>().x + InputManager.Instance._inputActions.Player.ControllerLook.ReadValue<Vector2>().x * 2) * sensitivity;
+        xRotation += (InputManager.Instance._inputActions.Player.MouseLook.ReadValue<Vector2>().y + InputManager.Instance._inputActions.Player.ControllerLook.ReadValue<Vector2>().y * 2) * sensitivity;
 
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
         playerCam.transform.rotation = Quaternion.Euler(-xRotation, yRotation, 0);

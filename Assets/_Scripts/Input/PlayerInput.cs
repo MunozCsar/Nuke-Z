@@ -73,24 +73,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CameraMovementX"",
-                    ""type"": ""Value"",
-                    ""id"": ""8a1ff5e7-b12b-463c-ae38-32c7a07bde20"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""CameraMovementY"",
-                    ""type"": ""Value"",
-                    ""id"": ""01537f76-b4c8-415a-90f9-0d9157158394"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Flashlight"",
                     ""type"": ""Button"",
                     ""id"": ""f1693919-6e7a-4204-ab8d-d58e9b8606d3"",
@@ -158,6 +140,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""76012637-2e45-4683-9ab7-88f8d5106be1"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ControllerLook"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""4c5a6a5e-a9b3-42b8-8b4f-2cc7c9d01596"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lethal"",
+                    ""type"": ""Button"",
+                    ""id"": ""04faadae-177b-4c60-81b7-c6fc5ad64e37"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -337,50 +337,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4eb99366-2283-4117-9de8-5a79767bf45e"",
-                    ""path"": ""<Mouse>/delta/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CameraMovementX"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1d09d347-ce11-43da-9d3c-0baefc3fc832"",
-                    ""path"": ""<Gamepad>/rightStick/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CameraMovementX"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""51d60ac3-c668-4d38-845a-85b49386cf3a"",
-                    ""path"": ""<Mouse>/delta/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CameraMovementY"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2ddc41b8-29f8-4cb9-8661-96f117f9bd01"",
-                    ""path"": ""<Gamepad>/rightStick/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CameraMovementY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -584,12 +540,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ead4f367-0509-47e8-b33e-0e22c2b3d1cb"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ControllerLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""96d9e775-45bc-4972-b891-13d361761b27"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3199862f-580c-485c-83d8-8287fd8e3a6b"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lethal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -605,8 +583,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_CameraMovementX = m_Player.FindAction("CameraMovementX", throwIfNotFound: true);
-        m_Player_CameraMovementY = m_Player.FindAction("CameraMovementY", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_ChangeWeapon = m_Player.FindAction("ChangeWeapon", throwIfNotFound: true);
@@ -615,6 +591,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Scoreboard = m_Player.FindAction("Scoreboard", throwIfNotFound: true);
         m_Player_AimDownSight = m_Player.FindAction("AimDownSight", throwIfNotFound: true);
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
+        m_Player_ControllerLook = m_Player.FindAction("ControllerLook", throwIfNotFound: true);
+        m_Player_Lethal = m_Player.FindAction("Lethal", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -681,8 +659,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_CameraMovementX;
-    private readonly InputAction m_Player_CameraMovementY;
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_ChangeWeapon;
@@ -691,6 +667,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Scoreboard;
     private readonly InputAction m_Player_AimDownSight;
     private readonly InputAction m_Player_MouseLook;
+    private readonly InputAction m_Player_ControllerLook;
+    private readonly InputAction m_Player_Lethal;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -700,8 +678,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @CameraMovementX => m_Wrapper.m_Player_CameraMovementX;
-        public InputAction @CameraMovementY => m_Wrapper.m_Player_CameraMovementY;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @ChangeWeapon => m_Wrapper.m_Player_ChangeWeapon;
@@ -710,6 +686,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Scoreboard => m_Wrapper.m_Player_Scoreboard;
         public InputAction @AimDownSight => m_Wrapper.m_Player_AimDownSight;
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
+        public InputAction @ControllerLook => m_Wrapper.m_Player_ControllerLook;
+        public InputAction @Lethal => m_Wrapper.m_Player_Lethal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -734,12 +712,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @CameraMovementX.started += instance.OnCameraMovementX;
-            @CameraMovementX.performed += instance.OnCameraMovementX;
-            @CameraMovementX.canceled += instance.OnCameraMovementX;
-            @CameraMovementY.started += instance.OnCameraMovementY;
-            @CameraMovementY.performed += instance.OnCameraMovementY;
-            @CameraMovementY.canceled += instance.OnCameraMovementY;
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
@@ -764,6 +736,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseLook.started += instance.OnMouseLook;
             @MouseLook.performed += instance.OnMouseLook;
             @MouseLook.canceled += instance.OnMouseLook;
+            @ControllerLook.started += instance.OnControllerLook;
+            @ControllerLook.performed += instance.OnControllerLook;
+            @ControllerLook.canceled += instance.OnControllerLook;
+            @Lethal.started += instance.OnLethal;
+            @Lethal.performed += instance.OnLethal;
+            @Lethal.canceled += instance.OnLethal;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -783,12 +761,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @CameraMovementX.started -= instance.OnCameraMovementX;
-            @CameraMovementX.performed -= instance.OnCameraMovementX;
-            @CameraMovementX.canceled -= instance.OnCameraMovementX;
-            @CameraMovementY.started -= instance.OnCameraMovementY;
-            @CameraMovementY.performed -= instance.OnCameraMovementY;
-            @CameraMovementY.canceled -= instance.OnCameraMovementY;
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
@@ -813,6 +785,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseLook.started -= instance.OnMouseLook;
             @MouseLook.performed -= instance.OnMouseLook;
             @MouseLook.canceled -= instance.OnMouseLook;
+            @ControllerLook.started -= instance.OnControllerLook;
+            @ControllerLook.performed -= instance.OnControllerLook;
+            @ControllerLook.canceled -= instance.OnControllerLook;
+            @Lethal.started -= instance.OnLethal;
+            @Lethal.performed -= instance.OnLethal;
+            @Lethal.canceled -= instance.OnLethal;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -837,8 +815,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnCameraMovementX(InputAction.CallbackContext context);
-        void OnCameraMovementY(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
@@ -847,5 +823,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnScoreboard(InputAction.CallbackContext context);
         void OnAimDownSight(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
+        void OnControllerLook(InputAction.CallbackContext context);
+        void OnLethal(InputAction.CallbackContext context);
     }
 }

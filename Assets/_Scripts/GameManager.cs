@@ -77,7 +77,10 @@ public class GameManager : MonoBehaviour
     {
         AssignVariables();
         InputManager.Instance.pause += PauseGame;
-        pauseCanvas.SetActive(false);   
+        pauseCanvas.SetActive(false);
+        playerScore += score;
+        UIManager.Instance.UpdateScoreBoard();
+
     }
 
     public void PlayUISound(int i)
@@ -107,42 +110,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void AssignVariables()
+    public void AssignVariables()
     {
 
         try
         {
-        IncreaseZombieHP(wave);
+            IncreaseZombieHP(wave);
         }
         catch { }
 
         try
         {
-        options.SetActive(false);
+            options.SetActive(false);
         }
         catch { }
 
         try
         {
-        graphics.SetActive(false);
+            graphics.SetActive(false);
         }
         catch { }
 
         try
         {
-        controls.SetActive(false);
+            controls.SetActive(false);
         }
         catch { }
 
         try
         {
-        volume.SetActive(false);
+            volume.SetActive(false);
         }
         catch { }
 
         try
         {
-        credits.SetActive(false);
+            credits.SetActive(false);
         }
         catch { }
 
@@ -152,7 +155,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         #region PowerupTimers
-        if(UIManager.Instance.instaKillUI != null)
+        if (UIManager.Instance.instaKillUI != null)
         {
             if (instaKill && instaKillTimer < 30)
             {
@@ -170,7 +173,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(UIManager.Instance.doublePointsUI != null)
+        if (UIManager.Instance.doublePointsUI != null)
         {
             if (doublePoints && doublePointsTimer < 30)
             {
@@ -211,6 +214,8 @@ public class GameManager : MonoBehaviour
 
         Instantiate(pointsInstance, UIManager.Instance.scoreText.transform); //Se instancia la animaci�n de los puntos
         UIManager.Instance.UpdateScoreText();
+        UIManager.Instance.UpdateScoreBoard();
+
     }
 
     public void ReduceScore(int cost) //Se reduce la puntuaci�n del jugador por el valor del coste dado
@@ -220,6 +225,8 @@ public class GameManager : MonoBehaviour
         pointsInstance.GetComponent<TMP_Text>().text = "-" + cost.ToString();
         Instantiate(pointsInstance, UIManager.Instance.scoreText.transform);
         UIManager.Instance.UpdateScoreText();
+        UIManager.Instance.UpdateScoreBoard();
+
     }
     #endregion
 
@@ -227,14 +234,14 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.nukeUI.GetComponent<Animator>().Play("RadDepletion");
         AddPoints(pointsOnNuke);
-        UIManager.Instance.UpdateScoreText();
-        UIManager.Instance.UpdateScoreBoard();
         foreach (GameObject zombie in zombieList) //Recorre la lista de zombies y llama a su funci�n de muerte
         {
             zombie.GetComponent<ZM_AI>().ZM_Nuke();
             zm_alive--;
             killScore++;
         }
+                UIManager.Instance.UpdateScoreText();
+        UIManager.Instance.UpdateScoreBoard();
         zombieList.Clear(); //Limpia la lista entera 
 
     }
@@ -263,30 +270,10 @@ public class GameManager : MonoBehaviour
     }
 
     #region SceneLoading
-    IEnumerator LoadSceneAsync(int sceneID)
-    {
-        UIManager.Instance.loadingScreen.SetActive(true);
-
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
-        while (!operation.isDone)
-        {
-            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
-
-            UIManager.Instance.loadingBar.fillAmount = progressValue;
-
-            yield return null;
-        }
-    }
-    public void Play(int sceneID)
-    {
-        StartCoroutine(LoadSceneAsync(sceneID));
-        AssignVariables();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
     public void EndGame() //Carga la escena con la cinem�tica final
     {
         SceneManager.LoadScene(2);
+        Destroy(UIManager.Instance.gameObject);
     }
 
     public void GameOver(GameObject player) //Acaba la partida, bloquea el movimiento del jugador y de la c�mara, muestra la pantalla de puntuaci�n y, tras 15 segundos, carga el menu principal
@@ -304,6 +291,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         AssignVariables();
     }
     public void Exit() //Sale del juego

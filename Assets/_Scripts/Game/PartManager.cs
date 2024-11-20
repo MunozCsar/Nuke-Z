@@ -39,16 +39,11 @@ public class PartManager : MonoBehaviour
     {
         if (powerUnlocked)
         {
-            foreach (GameObject light in nz_factory_manager.Instance.firstFloorLights)
+            foreach(GameObject light in nz_factory_manager.Instance.lights)
             {
                 light.SetActive(true);
             }
-            foreach (GameObject light in nz_factory_manager.Instance.secondFloorLights)
-            {
-                light.SetActive(true);
-            }
-            Color32 emissionColor = new Color(1f, .875f, .65f);
-            nz_factory_manager.Instance.lightMaterial.SetColor("_EmissionColor", emissionColor) ; // Al activar la electricidad, activa la propiedad de emission del material de las luces
+            nz_factory_manager.Instance.lightMaterial.EnableKeyword("_EMISSION"); // Al activar la electricidad, activa la propiedad de emission del material de las luces
             nz_factory_manager.Instance.electricDoor.GetComponent<Animator>().SetTrigger("Fold");
             powerUnlocked = false;
             UIManager.Instance.interactText.gameObject.SetActive(false);

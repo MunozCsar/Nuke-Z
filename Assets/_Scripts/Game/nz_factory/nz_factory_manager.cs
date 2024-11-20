@@ -6,7 +6,7 @@ public class nz_factory_manager : MonoBehaviour
 {
     public int selectedPart = 4;
     public GameObject[] powerParts;
-    public GameObject[] firstFloorLights, secondFloorLights;
+    public GameObject[] lights;
     public Material lightMaterial;
     public GameObject[] radiationContainers;
     public GameObject truckKey, electricDoor;

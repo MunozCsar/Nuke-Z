@@ -177,7 +177,7 @@ public class WeaponHandler : MonoBehaviour
                 {
                     audioSource.PlayOneShot(meleeSoundFX[0]);
                     audioSource.PlayOneShot(meleeSoundFX[1]);
-                    int rnd = Random.Range(0, (GameManager.Instance.bloodFX.Length - 1));
+                    int rnd = Random.Range(0, GameManager.Instance.bloodFX.Length - 1);
                     Instantiate(GameManager.Instance.bloodFX[rnd], hit.point, transform.rotation);
                     if (GameManager.Instance.instaKill)
                     {
@@ -194,7 +194,6 @@ public class WeaponHandler : MonoBehaviour
         }
 
     }
-
     #region Powerups
 
     public void MaxAmmo() //Municion maxima

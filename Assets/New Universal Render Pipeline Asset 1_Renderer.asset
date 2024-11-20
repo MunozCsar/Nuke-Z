@@ -76,9 +76,9 @@ MonoBehaviour:
     AfterOpaque: 0
     Source: 1
     NormalSamples: 1
-    Intensity: 0.5
+    Intensity: 1
     DirectLightingStrength: 0.25
-    Radius: 0.35
+    Radius: 0.3
     Samples: 2
     BlurQuality: 0
     Falloff: 100
@@ -112,6 +112,6 @@ MonoBehaviour:
     dBufferSettings:
       surfaceData: 2
     screenSpaceSettings:
-      normalBlend: 0
+      normalBlend: 2
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}

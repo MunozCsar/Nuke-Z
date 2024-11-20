@@ -2,7 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+
+//using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
     Este script controla el movimiento, vida y varias interacciones del jugador con el juego y su entorno.
@@ -11,6 +15,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Quaternion originalCameraRotation;
+
+    public float swayIntensity, swaySmoothness;
     public Camera cam;
     public int baseFov;
     public int sprintFov;
@@ -36,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject[] perkIcons;
     public List<GameObject> player_ActivePerks;
     public int player_PerkCount, activePerk, maxPerks;
-    bool perkInteraction;
+    public bool perkInteraction, debrisInteraction;
     public bool quickRevive_Active, juggernog_Active, speedcola_Active;
 
     #endregion
@@ -55,8 +62,8 @@ public class PlayerController : MonoBehaviour
     #region PlayerActions_Attributes
     public GameObject flashLight;
     public float t_barrier, barrier_Cooldown;
-    private bool performInteraction = false, interacting = false, flashOn;
-    private GameObject currentBarrier;
+    [SerializeField] private bool performInteraction = false, interacting = false, flashOn;
+    private GameObject currentBarrier, currentDebris;
     #endregion
 
     [Header("Movement variables")]
@@ -78,6 +85,18 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded, end_Game;
     public bool isDowned;
     #endregion
+
+    [Header("Equipment")]
+    public GameObject grenade;
+    public int lethalStored = 2;
+
+    public TMP_Text equipmentCount;
+    public float throwForce = 3f;
+    public GameObject grenadeIndicator;
+    public Image grenadeCountdown;
+    bool cookingGrenade = false, grenadeSpawned = false;
+    float timer;
+    Rigidbody grenadeRb;
     private void Start()
     {
         down_script = GetComponent<PlayerDowned>();
@@ -92,10 +111,20 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.flashLight += TurnOnFlashLight;
         InputManager.Instance.jump += Jump;
         InputManager.Instance.interact += EndGame;
+        originalCameraRotation = playerCam.transform.localRotation;
+        InputManager.Instance._inputActions.Player.Lethal.performed += ctx => StartLethal();
+        grenadeIndicator.SetActive(false);
+        InputManager.Instance._inputActions.Player.Lethal.canceled += ctx => EndLethal(grenadeRb);
+        equipmentCount.text = lethalStored.ToString();
+
     }
 
     private void Update()
     {
+        if (cookingGrenade && lethalStored > 0)
+        {
+            UseLethal();
+        }
         isSprinting = InputManager.Instance._inputActions.Player.Sprint.ReadValue<float>() > 0f;
         if (weaponHandler.playerWeapons.Count != 0)
         {
@@ -109,10 +138,10 @@ public class PlayerController : MonoBehaviour
                 MovePlayer(walkSpeed, isSprinting);
             }
         }
-            else
-            {
-                MovePlayer(walkSpeed, isSprinting);
-            }
+        else
+        {
+            MovePlayer(walkSpeed, isSprinting);
+        }
 
         if (!isSprinting || !isMoving)
         {
@@ -132,6 +161,12 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         RegenHP();
         RepairBarrier();
+        if (currentDebris != null)
+        {
+            ClearDebris(currentDebris);
+        }
+
+
         if (perkAttributes != null)
         {
             ObtainPerk(perkAttributes.id, perkAttributes.cost);
@@ -146,6 +181,7 @@ public class PlayerController : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+        CamSwayEnd();
 
     }
     #region Player Movement
@@ -237,9 +273,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (x != 0)
+        {
+            CamSway(x);
+        }
 
     }
 
+    public void CamSway(float intensity)
+    {
+        playerCam.transform.localRotation *= originalCameraRotation * Quaternion.Euler(0, 0, -intensity * swayIntensity);
+    }
+    public void CamSwayEnd()
+    {
+        playerCam.transform.localRotation = Quaternion.Lerp(playerCam.transform.localRotation, originalCameraRotation, swaySmoothness * 20 * Time.deltaTime);
+    }
     private void Jump()
     {
         if (isGrounded)
@@ -275,11 +323,19 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void ClearDebris(GameObject debris){
-        if (performInteraction && interacting){
+    public void ClearDebris(GameObject debris)
+    {
+        debris.tag = null;
+        if (performInteraction && debrisInteraction)
+        {
+            debrisInteraction = false;
             debris.GetComponent<Animator>().SetTrigger("clearDebris");
             GameManager.Instance.ReduceScore(debris.GetComponent<Debris>().debrisCost);
+            Debug.Log("Clearing debris");
+            UIManager.Instance.interactText.gameObject.SetActive(false);
+
         }
+
     }
     public void RepairBarrier()
     {
@@ -296,6 +352,50 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private void EndLethal(Rigidbody rb)
+    {
+        if (cookingGrenade)
+        {
+            rb.transform.SetParent(null);
+            cookingGrenade = false;
+            rb.useGravity = true;
+            rb.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+            grenadeSpawned = false;
+            timer = 0;
+            grenadeCountdown.fillAmount = 0;
+            grenadeIndicator.SetActive(false);
+            lethalStored--;
+            equipmentCount.text = lethalStored.ToString();
+
+        }
+
+    }
+    private void StartLethal()
+    {
+        if (lethalStored > 0)
+        {
+            grenadeIndicator.SetActive(true);
+            cookingGrenade = true;
+        }
+
+    }
+    private void UseLethal()
+    {
+        if (!grenadeSpawned)
+        {
+            GameObject lethal = Instantiate(grenade, cam.transform.position, cam.transform.rotation, transform);
+            grenadeRb = lethal.GetComponent<Rigidbody>();
+            grenadeSpawned = true;
+
+        }
+        timer += Time.deltaTime;
+        grenadeCountdown.fillAmount += Time.deltaTime / 3;
+        if (timer >= 3)
+        {
+            EndLethal(grenadeRb);
+        }
+    }
     #endregion
     #region Triggers
     private void OnTriggerEnter(Collider other)
@@ -304,11 +404,15 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Damage_Trigger")) //Recibe da�o al ser golpeado
         {
-            GameManager.Instance.ShowDamageIndicators(playerHP);
-            if (playerHP > 0)
+            if (other.transform.root.GetComponent<ZM_AI>().isAlive)
             {
-                TakeDamage(GameManager.Instance.zm_Damage);
+                GameManager.Instance.ShowDamageIndicators(playerHP);
+                if (playerHP > 0)
+                {
+                    TakeDamage(GameManager.Instance.zm_Damage);
+                }
             }
+
         }
         if (other.CompareTag("EndGameTrigger")) //Comprobaci�n de poder acabar la partida
         {
@@ -333,6 +437,13 @@ public class PlayerController : MonoBehaviour
             perkAttributes = other.gameObject.GetComponent<PerkID>();
             UIManager.Instance.interactText.gameObject.SetActive(true);
             UIManager.Instance.interactText.text = "Press F to buy perk (Cost: " + perkAttributes.cost + " points)";
+        }
+        if (other.CompareTag("Debris") && GameManager.Instance.score >= other.GetComponent<Debris>().debrisCost)
+        {
+            debrisInteraction = true;
+            currentDebris = other.gameObject;
+            UIManager.Instance.interactText.gameObject.SetActive(true);
+            UIManager.Instance.interactText.text = "Press F to clear debris (Cost: " + currentDebris.GetComponent<Debris>().debrisCost + " points)";
         }
     }
 
@@ -376,15 +487,8 @@ public class PlayerController : MonoBehaviour
                 interacting = false;
             }
         }
-    
-        if(other.CompareTag("Debris") && GameManager.Instance.score >= other.GetComponent<Debris>().debrisCost)
-        {
-            interacting = true;
-            GameObject debris = other.gameObject;
-            UIManager.Instance.interactText.gameObject.SetActive(true);
-            UIManager.Instance.interactText.text = "Press F to clear debris (Cost: " + debris.GetComponent<Debris>().debrisCost + " points)";
-            ClearDebris(debris);
-        }
+
+
     }
     #endregion
     #region Player Health & Damage
@@ -484,18 +588,18 @@ public class PlayerController : MonoBehaviour
             switch (perkID)
             {
                 case 0:
-                if (!quickRevive_Active)
+                    if (!quickRevive_Active)
                     {
                         //Quick revive
                         quickRevive_Active = true;
                         player_PerkCount++;
                         player_ActivePerks.Add(Instantiate(perkIcons[perkID], perkContainer.transform));
                         GameManager.Instance.ReduceScore(perkCost);
-     
+
                     }
                     break;
                 case 1:
-                    
+
                     if (!juggernog_Active)
                     {
                         //Juggernog

@@ -26,9 +26,13 @@ public class InputManager : MonoBehaviour
 
     public Action melee;
 
+    public Action lethal;
+
     public Action pause;
 
     public Action scoreBoard;
+
+    public bool releaseGrenade = false;
 
     private void Awake()
     {
@@ -53,18 +57,9 @@ public class InputManager : MonoBehaviour
         _inputActions.Player.ChangeWeapon.performed += OnWeaponChanged;
         _inputActions.Player.Melee.performed += OnMeleePerformed;
         _inputActions.Player.Pause.performed += OnPausePerformed;
+        
 
     }
-
-    public float GetCamX()
-    {
-        return _inputActions.Player.CameraMovementX.ReadValue<float>();
-    }
-    public float GetCamY()
-    {
-        return _inputActions.Player.CameraMovementY.ReadValue<float>();
-    }
-
     public Vector2 GetMovementDirection()
     {
         return _inputActions.Player.Movement.ReadValue<Vector2>();
@@ -100,9 +95,33 @@ public class InputManager : MonoBehaviour
     {
         melee.Invoke();
     }
+
+    private void OnLethalPerformed(InputAction.CallbackContext obj)
+    {
+        lethal.Invoke();
+    }
+
+    private void GrenadePerformed(InputAction.CallbackContext obj)
+    {
+        releaseGrenade = false;
+    }
+
+    private void GrenadeCancelled(InputAction.CallbackContext obj)
+    {
+        releaseGrenade = true;
+    }
+    public bool GetGrenadeRelease()
+    {
+        return releaseGrenade;
+    }
+
     private void OnPausePerformed(InputAction.CallbackContext obj)
     {
         pause.Invoke();
     }
+
+private void checkController(){
+    
+}
 
 }

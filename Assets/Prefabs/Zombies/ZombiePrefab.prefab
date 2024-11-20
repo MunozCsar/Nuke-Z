@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 7607384575922134193}
   m_Layer: 0
   m_Name: ZombiePrefab
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -828,6 +828,8 @@ MonoBehaviour:
   bodyCollider: {fileID: 4268947673151492127}
   headCollider: {fileID: 4268947673075392617}
   soulPrefab: {fileID: 7034444048118889058, guid: 719120dfaabfb0e40a8f1545c10bddfb, type: 3}
+  L_Collider: {fileID: 0}
+  R_Collider: {fileID: 0}
   patrolRange: 20
   targetBarrier: []
   focusBarrier: 0

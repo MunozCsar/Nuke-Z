@@ -21,7 +21,8 @@ public class GunController : MonoBehaviour
     [Header("GunData")]
     AudioSource audioSource;
     public string gunName;
-    public int id, ammoCost, pellets, damagePellet, damage;
+    public int id, ammoCost, pellets, damagePellet;
+    public float damage;
     public Animator gunAnimator;
     public LayerMask enemyMask;
 
@@ -58,37 +59,48 @@ public class GunController : MonoBehaviour
     public float adsTime;
     public bool isAiming;
 
+    [Header("WeaponSway")]
+    #region WeaponSway
+    public float swayMultiplier;
+    public float swaySmoothness;
+    #endregion
+
     void Start()
     {
         originalPos = GameObject.Find("GunPos").transform.localPosition;
         cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
-        originalCameraRotation = Quaternion.Euler(0,0,0);
-        audioSource = GetComponent<AudioSource>();
+        originalCameraRotation = Quaternion.Euler(0, 0, 0);
+        audioSource = transform.root.GetComponent<AudioSource>();
         ammo = ammoCapacity;
-        reserveAmmo = ammoCapacity * initialMags;        t_fire = firing_coolDown;
+        reserveAmmo = ammoCapacity * initialMags; t_fire = firing_coolDown;
         cam = GameObject.Find("fpsCam").GetComponent<Camera>();
 
-        if(gameObject.transform.root.GetComponent<PlayerController>().speedcola_Active)
+        if (gameObject.transform.root.GetComponent<PlayerController>().speedcola_Active)
         {
             IncreaseReloadSpeed();
         }
         defaultSpeed = gunAnimator.GetFloat("speedMultiplier");
     }
 
-    public void OnEnable(){
-
+    public void OnEnable()
+    {
+        if (gameObject.transform.root.GetComponent<PlayerController>().speedcola_Active)
+        {
+            IncreaseReloadSpeed();
+        }
         weaponActive = true;
         InputManager.Instance._inputActions.Player.Reload.started += ctx => Reload();
         InputManager.Instance._inputActions.Player.Fire.started += ctx => StartShot();
         InputManager.Instance._inputActions.Player.Fire.canceled += ctx => EndShot();
         InputManager.Instance._inputActions.Player.AimDownSight.started += ctx => StartADS();
         InputManager.Instance._inputActions.Player.AimDownSight.canceled += ctx => EndADS();
-        if(gameObject.transform.root.GetComponent<PlayerController>().speedcola_Active)
-        {
-            IncreaseReloadSpeed();
-        }
     }
-    public void OnDisable(){
+    public void OnDisable()
+    {
+        if (gameObject.transform.root.GetComponent<PlayerController>().speedcola_Active)
+        {
+            DefaultReloadSpeed();
+        }
         weaponActive = false;
         InputManager.Instance._inputActions.Player.Reload.started -= ctx => Reload();
         InputManager.Instance._inputActions.Player.Fire.started -= ctx => StartShot();
@@ -99,6 +111,7 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
+
         // Calculo de la cadencia de disparo
         firing_coolDown = 60 / rateOfFire;
         // Si el temporizador de disparo es menor que el enfriamiento le suma Time.deltaTime
@@ -115,13 +128,14 @@ public class GunController : MonoBehaviour
         }
 
         // Inicia la recarga si se presiona la tecla de recarga y hay munici�n disponible
-            if(isAiming && !isReloading && activateADS)
-            {
+        if (isAiming && !isReloading && activateADS)
+        {
             AimDownSight();
-            }
-            else{
+        }
+        else
+        {
             HipFire();
-            }
+        }
         // Comprueba el modo de disparo y la disponibilidad de munici�n y si se est� recargando antes de disparar
         if (firingMode.Equals(FiringMode.semi) && weaponActive && isFiring)
         {
@@ -139,18 +153,32 @@ public class GunController : MonoBehaviour
         {
             BuckShot();
         }
+        if (activateRecoil)
+        {
+            RecoilEnd();
 
-        RecoilEnd();
+        }
+        WeaponSway();
     }
 
     // Realiza un disparo
 
+
+    private void WeaponSway()
+    {
+        Vector2 sway = InputManager.Instance._inputActions.Player.MouseLook.ReadValue<Vector2>() + InputManager.Instance._inputActions.Player.ControllerLook.ReadValue<Vector2>() * 10;
+        Quaternion swayX = Quaternion.AngleAxis(sway.y, Vector3.right);
+        Quaternion swayY = Quaternion.AngleAxis(-sway.x, Vector3.up);
+        Quaternion targetRotation = swayX * swayY;
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * swaySmoothness);
+    }
     private void ApplyRecoil()
     {
 
         float recoilX = Random.Range(recoilXmin, recoilXmax);
         float recoilY = Random.Range(recoilYmin, recoilYmax);
-        if(isAiming){
+        if (isAiming)
+        {
             recoilY = recoilY * 0.5f;
             recoilX = recoilX * 0.5f;
         }
@@ -159,20 +187,23 @@ public class GunController : MonoBehaviour
             recoilX += 0.15f;
             recoilY += 0.1f;
         }
-        cam.transform.localRotation *= originalCameraRotation * Quaternion.Euler(-recoilX, recoilY, 0);  
+        cam.transform.localRotation *= originalCameraRotation * Quaternion.Euler(-recoilX, recoilY, 0);
     }
 
-    private void RecoilEnd(){
+    private void RecoilEnd()
+    {
         cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, originalCameraRotation, recoilSmoothness * Time.deltaTime);
     }
 
-    private void AimDownSight(){
+    private void AimDownSight()
+    {
         Debug.Log("ADS");
         gunAnimator.SetBool("isAiming", true);
         transform.parent.localPosition = Vector3.Lerp(transform.parent.localPosition, adsPos, adsTime);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, adsTime);
     }
-    private void HipFire(){
+    private void HipFire()
+    {
         gunAnimator.SetBool("isAiming", false);
         transform.parent.localPosition = Vector3.Lerp(transform.parent.localPosition, originalPos, adsTime);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 90, adsTime);
@@ -182,86 +213,85 @@ public class GunController : MonoBehaviour
     {
         spreadX = Random.Range(spreadMinX, spreadMaxX);
         spreadY = Random.Range(spreadMinY, spreadMaxY);
-        if(isAiming)
+        if (isAiming)
         {
             spreadY = spreadY * 0.5f;
             spreadX = spreadX * 0.5f;
         }
         spread = new Vector3(spreadX, spreadY, spreadX);
-        Debug.Log("Spread: " + spread);
         return spread;
     }
 
     private void Fire()
     {
 
-        Debug.Log("Is object: " + gunName + " active: " + weaponActive);
         if (ammo > 0 && t_fire >= firing_coolDown && !isReloading && GameManager.Instance.isPaused == false)
         {
-        t_fire = 0f;
-        ammo--;
-        currentBurst++;
-        muzzleFX.Play();
-        if(!isAiming)
-        {
-        gunAnimator.Play("Gun_Fire");
-        }
-        else
-        {
-        gunAnimator.Play("Gun_AimingFire");
-        }
+            t_fire = 0f;
+            ammo--;
+            currentBurst++;
+            muzzleFX.Play();
+            if (!isAiming)
+            {
+                gunAnimator.Play("Gun_Fire");
+            }
+            else
+            {
+                gunAnimator.Play("Gun_AimingFire");
+            }
 
-        audioSource.pitch = Random.Range(1.1f, 1.26f);
-        audioSource.PlayOneShot(soundEffects[0]);
+            audioSource.pitch = Random.Range(1.1f, 1.26f);
+            audioSource.PlayOneShot(soundEffects[0]);
             if (activateSpread)
             {
                 spread = Spread();
             }
 
             if (Physics.Raycast(cam.transform.position, transform.forward + spread, out RaycastHit hit, range, enemyMask))
-        {
-            if (hit.transform.CompareTag("Body_Collider"))
             {
-                int rnd = Random.Range(0, GameManager.Instance.bloodFX.Length - 1);
-                Instantiate(GameManager.Instance.bloodFX[rnd], hit.point, transform.rotation);
-                if (GameManager.Instance.instaKill)
+                if (hit.transform.CompareTag("Body_Collider"))
                 {
-                    hit.transform.parent.gameObject.GetComponent<ZM_AI>().ZM_Death(headShot);
+                    int rnd = Random.Range(0, GameManager.Instance.bloodFX.Length - 1);
+                    Instantiate(GameManager.Instance.bloodFX[rnd], hit.point, transform.rotation);
+                    if (GameManager.Instance.instaKill)
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ZM_AI>().ZM_Death(headShot);
+                    }
+                    else
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ZM_AI>().ReduceHP(damage, headShot);
+                        headShot = false;
+                    }
                 }
-                else
+                if (hit.transform.CompareTag("Head_Collider"))
                 {
-                    hit.transform.parent.gameObject.GetComponent<ZM_AI>().ReduceHP(damage, headShot);
-                    headShot = false;
+                    int rnd = Random.Range(0, GameManager.Instance.bloodFX.Length - 1);
+                    Instantiate(GameManager.Instance.bloodFX[rnd], hit.point, transform.rotation);
+                    if (GameManager.Instance.instaKill)
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ZM_AI>().ZM_Death(headShot);
+                    }
+                    else
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ZM_AI>().ReduceHP(damage * headshotMultiplier, headShot);
+                        headShot = true;
+                    }
+                }
+                if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Ground"))
+                {
+                    Instantiate(GameManager.Instance.wallChipFX, hit.point, Quaternion.identity);
+                    Instantiate(GameManager.Instance.bulletHoleDecal, hit.point, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(0, 0, Random.Range(0, 360)));
                 }
             }
-            if (hit.transform.CompareTag("Head_Collider"))
-            {
-                int rnd = Random.Range(0, GameManager.Instance.bloodFX.Length - 1);
-                Instantiate(GameManager.Instance.bloodFX[rnd], hit.point, transform.rotation);
-                if (GameManager.Instance.instaKill)
-                {
-                    hit.transform.parent.gameObject.GetComponent<ZM_AI>().ZM_Death(headShot);
-                }
-                else
-                {
-                    hit.transform.parent.gameObject.GetComponent<ZM_AI>().ReduceHP(damage * headshotMultiplier, headShot);
-                    headShot = true;
-                }
-            }
-            if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Ground"))
-            {
-                Instantiate(GameManager.Instance.wallChipFX, hit.point, Quaternion.identity);
-                Instantiate(GameManager.Instance.bulletHoleDecal, hit.point, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(0, 0, Random.Range(0, 360)));
-            }
-        }
             if (activateRecoil)
             {
                 ApplyRecoil();
             }
 
         }
-        if(firingMode != FiringMode.full){
-        isFiring = false;
+        if (firingMode != FiringMode.full)
+        {
+            isFiring = false;
 
         }
 
@@ -284,7 +314,6 @@ public class GunController : MonoBehaviour
                     spread = Spread();
                 }
                 if (Physics.Raycast(cam.transform.position, transform.forward + spread, out RaycastHit hit, range, enemyMask))
-                Debug.DrawRay(cam.transform.position, transform.forward + spread, Color.red, 5f);
                 {
                     if (hit.transform.CompareTag("Body_Collider"))
                     {
@@ -365,18 +394,18 @@ public class GunController : MonoBehaviour
     {
         if (reserveAmmo > 0 && ammo < ammoCapacity && t_fire >= firing_coolDown && !isAiming && transform.parent.gameObject.activeSelf.Equals(true) && gameObject != null)
         {
-                if (ammo <= 0)
-                {
-                    StartCoroutine(ReloadWeapon(emptyReloadTime));
-                    gunAnimator.Play("Gun_ReloadEmpty");
-                    gunAnimator.Play("Arms_ReloadEmpty");
-                }
-                else
-                {
-                    StartCoroutine(ReloadWeapon(reloadTime));
-                    gunAnimator.Play("Gun_Reload");
-                    gunAnimator.Play("Arms_Reload");
-                }          
+            if (ammo <= 0)
+            {
+                StartCoroutine(ReloadWeapon(emptyReloadTime));
+                gunAnimator.Play("Gun_ReloadEmpty");
+                gunAnimator.Play("Arms_ReloadEmpty");
+            }
+            else
+            {
+                StartCoroutine(ReloadWeapon(reloadTime));
+                gunAnimator.Play("Gun_Reload");
+                gunAnimator.Play("Arms_Reload");
+            }
 
         }
 
@@ -385,17 +414,17 @@ public class GunController : MonoBehaviour
     // Corrutina para recargar el arma
     IEnumerator ReloadWeapon(float weaponReloadTime)
     {
-         isReloading = true;
-         yield return new WaitForSeconds(weaponReloadTime);
+        isReloading = true;
+        yield return new WaitForSeconds(weaponReloadTime);
 
 
-            // Llena el cargador con munici�n de reserva
-            for (int i = ammo; ammo < ammoCapacity && reserveAmmo > 0; i++)
-            {
-                ammo++;
-                reserveAmmo--;
-            }
-            isReloading = false;
+        // Llena el cargador con munici�n de reserva
+        for (int i = ammo; ammo < ammoCapacity && reserveAmmo > 0; i++)
+        {
+            ammo++;
+            reserveAmmo--;
+        }
+        isReloading = false;
 
 
     }
@@ -416,7 +445,7 @@ public class GunController : MonoBehaviour
         emptyReloadTime *= speedMultiplier;
     }
 
-        void PlaySound(AnimationEvent animEvent)
+    void PlaySound(AnimationEvent animEvent)
     {
         audioSource.PlayOneShot(soundEffects[animEvent.intParameter]);
     }

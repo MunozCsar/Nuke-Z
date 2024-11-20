@@ -628,9 +628,9 @@ MonoBehaviour:
   juggHP: 0
   t_regen: 0
   regen_Cooldown: 7
-  reviveSpeed: 0
+  reviveSpeed: 1
   revive_t: 0
-  revive_goal: 0
+  revive_goal: 10
   perkContainer: {fileID: 0}
   perkAttributes: {fileID: 0}
   perkIcons:
@@ -647,15 +647,17 @@ MonoBehaviour:
   playerCam: {fileID: 3373595159905509099}
   cameraDown_Position: {fileID: 1917161501}
   cameraUp_Position: {fileID: 2016147706}
-  downSpeed: 1
+  downSpeed: 10
   weaponHandler: {fileID: 1936774281}
   flashLight: {fileID: 3373595161618769732}
-  hasKeyCard: 0
   t_barrier: 0
   barrier_Cooldown: 1.5
+  isSprinting: 0
+  isMoving: 0
   gravity: -9.81
   walkSpeed: 7.5
   strafeSpeed: 6.5
+  adsSpeed: 1
   sprintMultiplier: 1.25
   jumpHeight: 1.5
   groundCheck: {fileID: 3373595160237809682}

@@ -14,13 +14,14 @@ public class ZM_AI : MonoBehaviour
     public int zm_aggro_level;
 
     public Animator zm_Animator;
-    public GameObject nearestObject, bodyCollider, headCollider, soulPrefab;
+    public GameObject nearestObject, bodyCollider, headCollider, soulPrefab, L_Collider, R_Collider;
     private NavMeshAgent agent = null;
     public float patrolRange;
     private Transform target;
     public GameObject[] targetBarrier;
     public bool focusBarrier, isAlive, isInZone;
     public float t_barrier, barrier_coolDown, d_Nearest, hp;
+
 
     void Start()
     {
@@ -31,8 +32,6 @@ public class ZM_AI : MonoBehaviour
         targetBarrier = GameObject.FindGameObjectsWithTag("DestroyBarrier");
         nearestObject = targetBarrier[0];
         d_Nearest = Vector3.Distance(transform.position, nearestObject.transform.position);
-        
-
         // Encuentra la barrera m�s cercana al zombie
         for (int i = 1; i < targetBarrier.Length; i++)
         {
@@ -43,6 +42,30 @@ public class ZM_AI : MonoBehaviour
                 nearestObject = targetBarrier[i];
                 d_Nearest = distanceToCurrent;
             }
+        }
+
+        switch (GameManager.Instance.wave)
+        {
+            case >= 12:
+                zm_aggro_level = 4;
+                ZM_Aggro(4);
+                break;
+            case >= 8:
+                zm_aggro_level = 3;
+                ZM_Aggro(3);
+                break;
+            case >= 3:
+                zm_aggro_level = 2;
+                ZM_Aggro(2);
+                break;
+            case >= 1:
+                zm_aggro_level = 1;
+                ZM_Aggro(1);
+                break;
+
+            default:
+                ZM_Aggro(0);
+                break;
         }
 
     }
@@ -82,52 +105,49 @@ public class ZM_AI : MonoBehaviour
         {
             GetComponent<AudioSource>().Pause();
         }
-        else if(!GameManager.Instance.isPaused)
+        else if (!GameManager.Instance.isPaused)
         {
             GetComponent<AudioSource>().UnPause();
         }
 
-        // if(GameManager.Instance.wave < 3)
-        // {
-
-        //     agent.speed = 2f;
-        //     zm_Animator.SetBool("zombie_Run", false);
-        // }
-        // else if(GameManager.Instance.wave >= 3 && GameManager.Instance.wave < 5)
-        // {
-
-        //     agent.speed = 3f;
-        //     zm_Animator.SetBool("zombie_Run", false);
-        // }
-        // else if(GameManager.Instance.wave >= 5)
-        // {
-        //     agent.speed = 4f;
-        //     zm_Animator.SetBool("zombie_Run", true);
-        // }
-
-        // Controla el movimiento del zombie hacia su objetivo
-
-
     }
 
-        public void ZM_Aggro(int aggro_level)
+    public void ZM_Aggro(int aggro_level)
+    {
+        switch (aggro_level)
         {
-            switch (aggro_level) 
-            {
-                case 0: 
-                    GameManager.Instance.zm_Damage = 50;
-                    agent.speed = 0f;
-                    agent.ResetPath();
-                    break;
-                case 1:
-                    GameManager.Instance.zm_Damage = 50;
-                    agent.speed = 2f;
-                    zm_Animator.SetBool("zombie_Run", false);
-                    break;
-                case 2:
+            case 0:
+                GameManager.Instance.zm_Damage = 0;
+                agent.speed = 0f;
+                agent.ResetPath();
+                zm_Animator.SetInteger("walkSpeed", 0);
                 break;
-            }
+            case 1:
+                GameManager.Instance.zm_Damage = 30;
+                float randomSpeed = Random.Range(1.65f, 2.15f);
+                agent.speed = randomSpeed;
+                zm_Animator.SetInteger("walkSpeed", 1);
+                break;
+            case 2:
+                GameManager.Instance.zm_Damage = 50;
+                randomSpeed = Random.Range(2.5f, 3.25f);
+                agent.speed = randomSpeed;
+                zm_Animator.SetInteger("walkSpeed", 2);
+                break;
+            case 3:
+                GameManager.Instance.zm_Damage = 50;
+                randomSpeed = Random.Range(4.35f, 4.85f);
+                agent.speed = randomSpeed;
+                zm_Animator.SetInteger("walkSpeed", 3);
+                break;
+            case 4:
+                GameManager.Instance.zm_Damage = 75;
+                randomSpeed = Random.Range(7.5f, 8.5f);
+                agent.speed = randomSpeed;
+                zm_Animator.SetInteger("walkSpeed", 4);
+                break;
         }
+    }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -194,10 +214,12 @@ public class ZM_AI : MonoBehaviour
         GetComponent<AudioSource>().PlayOneShot(soundEffects[Random.Range(3, 6)]);
         GameManager.Instance.killScore++;
         GameManager.Instance.zm_alive--;
+        zm_Animator.SetLayerWeight(1, 0f);
+
         if (headShot)
         {
             GameManager.Instance.AddPoints(GameManager.Instance.pointsOnHead);
-            GetComponent<Animator>().Play("Zombie_Headshot");
+            zm_Animator.Play("zm_headShotDeath");
             agent.speed = 0f;
             agent.isStopped = true;
             isAlive = false;
@@ -208,7 +230,7 @@ public class ZM_AI : MonoBehaviour
         else
         {
             GameManager.Instance.AddPoints(GameManager.Instance.pointsOnKill);
-            GetComponent<Animator>().Play("Zombie_Death");
+            zm_Animator.Play("zm_death");
             agent.speed = 0f;
             agent.isStopped = true;
             isAlive = false;
@@ -234,10 +256,12 @@ public class ZM_AI : MonoBehaviour
         GetComponent<RandomGrunts>().enabled = false;
         GetComponent<AudioSource>().Stop();
         GetComponent<AudioSource>().PlayOneShot(soundEffects[Random.Range(3, 6)]);
-        GameManager.Instance.AddPoints(GameManager.Instance.pointsOnHead);
         GameManager.Instance.killScore++;
         GameManager.Instance.zm_alive--;
-        GetComponent<Animator>().Play("Zombie_Death");
+        GameManager.Instance.AddPoints(GameManager.Instance.pointsOnHead);
+        zm_Animator.SetBool("isAttacking", false);
+        zm_Animator.SetLayerWeight(1, 0f);
+        zm_Animator.Play("zm_death");
         agent.speed = 0f;
         agent.isStopped = true;
         isAlive = false;
@@ -260,9 +284,11 @@ public class ZM_AI : MonoBehaviour
     {
         GetComponent<RandomGrunts>().enabled = false;
         GetComponent<AudioSource>().Stop();
-        GetComponent<AudioSource>().PlayOneShot(soundEffects[Random.Range(3,6)]);
+        GetComponent<AudioSource>().PlayOneShot(soundEffects[Random.Range(3, 6)]);
         Instantiate(GameManager.Instance.bloodFX[4], transform.position, GameManager.Instance.bloodFX[4].transform.rotation);
-        GetComponent<Animator>().Play("Zombie_Death");
+        zm_Animator.SetLayerWeight(1, 0f);
+
+        zm_Animator.Play("zm_death");
         agent.speed = 0f;
         agent.isStopped = true;
         isAlive = false;
@@ -334,9 +360,10 @@ public class ZM_AI : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         // Detecta si el zombie ha colisionado con el jugador y activa la animaci�n de ataque
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isAlive)
         {
             zm_Animator.SetBool("isAttacking", true);
+            zm_Animator.SetInteger("attackAnimation", Random.Range(0, 15));
         }
         if (other.CompareTag("SoulZone"))
         {
@@ -351,7 +378,9 @@ public class ZM_AI : MonoBehaviour
             }
             else if (t_barrier >= barrier_coolDown && other.transform.parent.GetComponent<BarrierLogic>().hitPoints > 0)
             {
+                zm_Animator.SetInteger("attackAnimation", 13);
                 zm_Animator.SetBool("isAttacking", true);
+                zm_Animator.SetInteger("walkSpeed", 0);
                 t_barrier = 0f;
                 other.transform.parent.GetComponent<BarrierLogic>().ReduceHitPoints();
             }
@@ -359,9 +388,22 @@ public class ZM_AI : MonoBehaviour
             if (other.transform.parent.GetComponent<BarrierLogic>().hitPoints <= 0)
             {
                 focusBarrier = false;
-                
+                zm_Animator.SetBool("isAttacking", false);
+                ZM_Aggro(zm_aggro_level);
+
             }
         }
+    }
+
+    public void ActivateCollider()
+    {
+        L_Collider.SetActive(true);
+        R_Collider.SetActive(true);
+    }
+    public void DeactivateCollider()
+    {
+        L_Collider.SetActive(false);
+        R_Collider.SetActive(false);
     }
 
     public void PlaySound()

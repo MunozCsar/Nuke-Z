@@ -51,24 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CameraMovementX",
-                    "type": "Value",
-                    "id": "8a1ff5e7-b12b-463c-ae38-32c7a07bde20",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "CameraMovementY",
-                    "type": "Value",
-                    "id": "01537f76-b4c8-415a-90f9-0d9157158394",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Flashlight",
                     "type": "Button",
                     "id": "f1693919-6e7a-4204-ab8d-d58e9b8606d3",
@@ -136,6 +118,24 @@
                     "type": "PassThrough",
                     "id": "76012637-2e45-4683-9ab7-88f8d5106be1",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ControllerLook",
+                    "type": "PassThrough",
+                    "id": "4c5a6a5e-a9b3-42b8-8b4f-2cc7c9d01596",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lethal",
+                    "type": "Button",
+                    "id": "04faadae-177b-4c60-81b7-c6fc5ad64e37",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -315,50 +315,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4eb99366-2283-4117-9de8-5a79767bf45e",
-                    "path": "<Mouse>/delta/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraMovementX",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1d09d347-ce11-43da-9d3c-0baefc3fc832",
-                    "path": "<Gamepad>/rightStick/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraMovementX",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "51d60ac3-c668-4d38-845a-85b49386cf3a",
-                    "path": "<Mouse>/delta/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraMovementY",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2ddc41b8-29f8-4cb9-8661-96f117f9bd01",
-                    "path": "<Gamepad>/rightStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraMovementY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -562,12 +518,34 @@
                 },
                 {
                     "name": "",
+                    "id": "ead4f367-0509-47e8-b33e-0e22c2b3d1cb",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControllerLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "96d9e775-45bc-4972-b891-13d361761b27",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MouseLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3199862f-580c-485c-83d8-8287fd8e3a6b",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lethal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
