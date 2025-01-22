@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LightConeTxT
   m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHABLEND_ON
   - _EMISSION
@@ -26,6 +28,7 @@ Material:
   - DepthOnly
   - SHADOWCASTER
   - GRABPASS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -143,9 +146,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.90484035, b: 0.74056596, a: 0.1764706}
     - _CameraFadeParams: {r: 0.25, g: 0.5714286, b: 0, a: 0}
-    - _Color: {r: 1, g: 0.93996567, b: 0.8349056, a: 0.1764706}
+    - _Color: {r: 1, g: 0.95382017, b: 0.9386792, a: 0.1764706}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0.9432071, g: 1, b: 0.7122642, a: 1}
+    - _EmissionColor: {r: 1, g: 0.77578616, b: 0.6745283, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
